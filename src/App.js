@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+const luana = {
+  cliente: "Luana",
+  idade: 27,
+  compras: [
+    { nome: "Notebook", preco: "R$ 2500" },
+    { nome: "Geladeira", preco: "R$ 3000" },
+    { nome: "Smartphone", preco: "R$ 1500" },
+  ],
+  ativa: true,
+};
+
+const mario = {
+  cliente: "Mario",
+  idade: 31,
+  compras: [
+    { nome: "Notebook", preco: "R$ 2500" },
+    { nome: "Geladeira", preco: "R$ 3000" },
+    { nome: "Smartphone", preco: "R$ 1500" },
+    { nome: "Guitarra", preco: "R$ 3500" },
+  ],
+  ativa: false,
+};
+
+const App = () => {
+  const dados = mario;
+
+  const total = dados.compras
+    .map((item) => Number(item.preco.replace("R$ ", "")))
+    .reduce((a, b) => a + b);
+    
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <span>Nome: {dados.cliente}</span>
+      <span>Idade: {dados.idade}</span>
+      <span>
+        Situação:{" "}
+        <span style={dados.ativa ? { color: "green" } : { color: "red" }}>
+          {" "}
+          {dados.ativa ? "Ativa" : "Inativa"}
+        </span>
+      </span>
+      <span>Total: {total}</span>
+      <span>{total > 7000 ? "Ultrapassou !" : "Menor "}</span>
     </div>
   );
-}
+};
 
 export default App;
