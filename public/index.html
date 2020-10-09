@@ -103,6 +103,16 @@ MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(modu
 
     <script>
       // O objeto medicamento:
+      const btn = document.querySelector("#addItemBtn");
+
+      btn.addEventListener("click", () => {
+        // var posologiaAdd = document.querySelectorAll(".posologia")[0]
+        //   .textContent;
+
+        // posologia.push(posologiaAdd);
+        alert("entrou");
+      });
+
       var medicamentosAdicionados = [];
       var posologia = [];
       MdSinapsePrescricao.event.add(
