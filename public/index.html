@@ -18,6 +18,118 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-   
+    <script
+    type="text/javascript"
+    src="http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js"
+    data-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
+    data-color="#576cff"
+    data-container="memed-container"
+    >
+</script>
+
+<script>
+MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
+
+  // O módulo da prescrição foi iniciado
+  if (module.name === 'plataforma.prescricao') {
+
+      MdHub.command.send('plataforma.prescricao', 'setPaciente', {
+        // Nome do paciente (obrigatório)
+        nome: 'Paciente 01',
+
+        // Endereço do paciente (opcional)
+        endereco: 'Rua da Saúde, 123',
+
+        // Cidade do paciente (opcional)
+        cidade: 'São Paulo',
+
+        // Telefone celular (obrigatório, DDD + digitos, somente números. NÃO ENVIAR PREFIXO "+55")
+        telefone: '11999999999',
+        
+        // Usado no receituário de alto custo (Opcional)
+        peso: 75,
+
+              // Usado no receituário de alto custo (Opcional)
+        altura: 1.80,
+
+              // Usado no receituário de alto custo (Opcional)
+        nome_mae: 'Nome da mãe',
+
+              // Usado no receituário de alto custo (Opcional)
+        dificuldade_locomocao: true,
+
+        // Pode ser um documento criptografado do paciente, por exemplo
+        // Usamos essa propriedade para destinguir nomes iguais
+        idExterno: 'some_encoded_data_or_hash_or_id'
+      }).then(function() {
+        
+        // Mostra o módulo de prescrição
+        MdHub.module.show('plataforma.prescricao');
+      });
+  }
+});
+</script>
+
+   <!-- <script
+    type="text/javascript"
+    src="http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js"
+    data-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
+    data-color="#COR_PRIMARIA_EM_HEXADECIMAL"
+    data-container="memed-container"
+    crossorigin>
+</script> -->
+<!-- 
+<script>
+MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
+ MdHub.module.show('plataforma.prescricao');
+});
+</script> -->
+
+<script>
+MdSinapsePrescricao.event.add('core:moduleInit', function(moduleData){
+    if (moduleData.name === 'plataforma.prescricao') {
+        // O módulo da prescrição foi iniciado.
+        MdHub.event.add('prescricaoImpressa', function(prescriptionData) {
+            // No objeto "prescriptionData", é retornado as informações da prescrição gerada.
+            // Implementar ações, callbacks, etc.
+            console.log(prescriptionData);
+        });
+    }
+});
+
+
+</script>
+
+<script>
+MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
+
+  // O módulo da prescrição foi iniciado,
+  if (module.name === 'plataforma.prescricao') {
+
+    MdHub.event.add('medicamentoAdicionado', function callback(medicamento) {
+
+      // O objeto medicamento:
+
+      // {
+      //    "alto_custo":false,
+      //    "composicao":"Princípio Ativo 1 + Princípio Ativo 2",
+      //    "controle_especial":false,
+      //    "descricao":"Ácido Ascórbico",
+      //    "fabricante":"Sundown Vitaminas",
+      //    "forma_fisica":"Cápsula",
+      //    "id":"a123123123",
+      //    "nome":"Vitamina C, comprimido (100un)",
+      //    "quantidade":1,
+      //    "tipo":"dermocosmético",
+      //  }
+      console.log(medicamento);
+    });
+
+    MdHub.event.add('medicamentoRemovido', function callback(idDoMedicamento) {
+     console.log(idDoMedicamento);
+    });
+  }
+});
+</script>
   </body>
 </html>

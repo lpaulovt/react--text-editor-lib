@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 
-const JanelaModal = ({ modal, setModal }) => {
-  if (modal === true)
-    return (
-      <div>
-        <p>Esse é um modal!</p>
-        <button onClick={() => setModal(false)}>Fechar</button>
-      </div>
-    );
+export const Modal = () => {
 
-  return null;
-};
-
-const Modal = () => {
-  const [modal, setModal] = useState(false);
+  // function initMemed() {
+  //   var script = document.createElement("script");
+  //   script.setAttribute("type", "text/javascript");
+  //   script.setAttribute("data-color", "#COR_PRIMARIA_EM_HEXADECIMAL");
+  //   script.setAttribute("data-container", "memed-container");
+  //   script.setAttribute(
+  //     "data-token",
+  //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
+  //   );
+  //   script.src =
+  //     "http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js";
+  //   // script.onload = function () {
+  //   //   // Obs: Essa função precisa ser implementada, seguindo o artigo de comandos para definição de paciente (Link abaixo).
+  //   //   initEventsMemed();
+  //   // };
+  //   document.body.appendChild(script);
+  // }
+  // initMemed()
   return (
-    <>
-      <JanelaModal modal={modal} setModal={setModal} />
-      <button onClick={() => setModal(true)}>Abrir</button>
-    </>
+    <div>
+      <div id="memed-container" style={{width: 820, height: 700}}></div>
+    </div>
   );
 };
-
-export default Modal;

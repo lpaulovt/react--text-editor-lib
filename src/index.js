@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Apis } from "./Apis";
-
-//import Modal from "./Modal";
+import { Modal } from "./Modal";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Apis />
+    <Modal />
   </React.StrictMode>,
   document.getElementById("root")
 );
