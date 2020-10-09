@@ -1,7 +1,6 @@
 import React from "react";
 
 export const Modal = () => {
-
   // function initMemed() {
   //   var script = document.createElement("script");
   //   script.setAttribute("type", "text/javascript");
@@ -22,7 +21,8 @@ export const Modal = () => {
   // initMemed()
   return (
     <div>
-      <div id="memed-container" style={{width: 820, height: 700}}></div>
+      <div id="memed-container" style={{ width: 820, height: 700 }}></div>
+      <span id="medicamento"></span>
     </div>
   );
 };

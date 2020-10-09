@@ -11,7 +11,7 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="stylesheet" href="%PUBLIC_URL%/style.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/style.css" />
 
     <title>React App</title>
   </head>
@@ -19,58 +19,61 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script
-    type="text/javascript"
-    src="http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js"
-    data-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
-    data-color="#576cff"
-    data-container="memed-container"
-    >
-</script>
+      type="text/javascript"
+      src="http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js"
+      data-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
+      data-color="#576cff"
+      data-container="memed-container"
+    ></script>
 
-<script>
-MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
+    <script>
+      MdSinapsePrescricao.event.add(
+        "core:moduleInit",
+        function moduleInitHandler(module) {
+          // O módulo da prescrição foi iniciado
+          MdHub.command.send("plataforma.prescricao", "setFeatureToggle", {
+            // // Desativa a opção de excluir um paciente (obrigatório)
+            deletePatient: false,
+            // // Desabilita a opção de remover/trocar o paciente (obrigatório)
+            removePatient: false,
+            // Esconde o histórico de prescrições
+            historyPrescription: false,
+            // // Esconde o botão "Nova Prescrição"
+            newPrescription: false,
+            //  Esconde o botão "Opções Receituário"
+            optionsPrescription: false,
+            // // Desabilita a opção de remover a prescrição no histórico
+            // removePrescription: false,
+            // // Esconde o formulário de edição do paciente
+            editPatient: false,
+            // // Desabilita a opção para definir alergias para o paciente
+            setPatientAllergy: false,
+            // // Desabilita a aba "Exames" do Autocomplete de medicamentos
+            autocompleteExams: false,
+            // // Desabilita a aba "Industrializados" do Autocomplete de medicamentos
+            // autocompleteIndustrialized: false,
+            // // Desabilita a aba "Manipulados" do Autocomplete de medicamentos
+            // autocompleteManipulated: false,
+            // // Desabilita a aba "Composições" do Autocomplete de medicamentos
+            // autocompleteCompositions: false,
+            // // Desabilita a aba "Periféricos" do Autocomplete de medicamentos
+            // autocompletePeripherals: false,
+            // // Esconde o botão "Copiar para Prontuário" (que copia o conteúdo da prescrição para o clipboard)
+            copyMedicalRecords: false,
+            // // Esconde o botão de fechar da prescrição
+            buttonClose: false,
+            // // Habilita opção Nova Fórmula Manipulada no menu
+            // newFormula: false,
+          });
 
-  // O módulo da prescrição foi iniciado
-  if (module.name === 'plataforma.prescricao') {
+          if (module.name === "plataforma.prescricao") {
+            MdHub.module.show("plataforma.prescricao");
+          }
+        }
+      );
+    </script>
 
-      MdHub.command.send('plataforma.prescricao', 'setPaciente', {
-        // Nome do paciente (obrigatório)
-        nome: 'Paciente 01',
-
-        // Endereço do paciente (opcional)
-        endereco: 'Rua da Saúde, 123',
-
-        // Cidade do paciente (opcional)
-        cidade: 'São Paulo',
-
-        // Telefone celular (obrigatório, DDD + digitos, somente números. NÃO ENVIAR PREFIXO "+55")
-        telefone: '11999999999',
-        
-        // Usado no receituário de alto custo (Opcional)
-        peso: 75,
-
-              // Usado no receituário de alto custo (Opcional)
-        altura: 1.80,
-
-              // Usado no receituário de alto custo (Opcional)
-        nome_mae: 'Nome da mãe',
-
-              // Usado no receituário de alto custo (Opcional)
-        dificuldade_locomocao: true,
-
-        // Pode ser um documento criptografado do paciente, por exemplo
-        // Usamos essa propriedade para destinguir nomes iguais
-        idExterno: 'some_encoded_data_or_hash_or_id'
-      }).then(function() {
-        
-        // Mostra o módulo de prescrição
-        MdHub.module.show('plataforma.prescricao');
-      });
-  }
-});
-</script>
-
-   <!-- <script
+    <!-- <script
     type="text/javascript"
     src="http://sandbox.memed.com.br/modulos/plataforma.sinapse-prescricao/build/sinapse-prescricao.min.js"
     data-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.WzMyMTczLCI5YjQ1NDJkYzc5NGI4MDBjMWE4ODRlNDI5ZWEzY2FhMCIsIjIwMjAtMTAtMDgiLCJzaW5hcHNlLnByZXNjcmljYW8iLCJwYXJ0bmVyLjMuMjc1NzUiXQ.BdoEwll_NH-MMhkYFum2r1m6Esw9jdSJYAeIsAFt_us"
@@ -78,58 +81,147 @@ MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(modu
     data-container="memed-container"
     crossorigin>
 </script> -->
-<!-- 
+    <!-- 
 <script>
 MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
  MdHub.module.show('plataforma.prescricao');
 });
 </script> -->
-
-<script>
-MdSinapsePrescricao.event.add('core:moduleInit', function(moduleData){
-    if (moduleData.name === 'plataforma.prescricao') {
-        // O módulo da prescrição foi iniciado.
-        MdHub.event.add('prescricaoImpressa', function(prescriptionData) {
+    <!-- 
+    <script>
+      MdSinapsePrescricao.event.add("core:moduleInit", function (moduleData) {
+        if (moduleData.name === "plataforma.prescricao") {
+          // O módulo da prescrição foi iniciado.
+          MdHub.event.add("prescricaoImpressa", function (prescriptionData) {
             // No objeto "prescriptionData", é retornado as informações da prescrição gerada.
             // Implementar ações, callbacks, etc.
             console.log(prescriptionData);
-        });
-    }
-});
+          });
+        }
+      });
+    </script> -->
 
-
-</script>
-
-<script>
-MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(module) {
-
-  // O módulo da prescrição foi iniciado,
-  if (module.name === 'plataforma.prescricao') {
-
-    MdHub.event.add('medicamentoAdicionado', function callback(medicamento) {
-
+    <script>
       // O objeto medicamento:
+      var medicamentosAdicionados = [];
+      MdSinapsePrescricao.event.add(
+        "core:moduleInit",
+        function moduleInitHandler(module) {
+          // O módulo da prescrição foi iniciado,
+          //           MdHub.command
+          //             .send("plataforma.prescricao", "getPrescricao")
+          //             .then(function (prescricao) {
+          //               console.log(prescricao);
+          //               /*
+          // Retornará o seguinte payload
+          // {
+          //     "data": {
+          //         "type": "prescricoes",
+          //         "attributes": {
+          //             "paciente": {
+          //                 "id": "Paciente de teste",
+          //                 "nome": "Paciente de teste"
+          //             },
+          //             "pacienteId": "Paciente de teste",
+          //             "prescriptionDate": "17/04/2019",
+          //             "prescriptionUuid": "6ee9cd8a-4bfc-417e-be7b-5ad53083f4ba",
+          //             "medicamentos": [
+          //                 {
+          //                     "fabricante": "Bayer",
+          //                     "cids": "",
+          //                     "titularidade": "Referência",
+          //                     "status": "Ativo",
+          //                     "tarja": "Livre",
+          //                     "descricao": "Ácido azeláico 150mg/g",
+          //                     "fabricante_slug": "bayer",
+          //                     "preco": "21,00",
+          //                     "preco_maximo": 21,
+          //                     "preco_minimo": 21,
+          //                     "receituario": "Simples",
+          //                     "subtitulo": ", Gel (15g)",
+          //                     "tipo": "alopático",
+          //                     "titulo": "Azelan 150mg/g",
+          //                     "forma_fisica": "Gel",
+          //                     "highlight": {
+          //                         "titulo": "<em>Azelan</em> 150mg/g",
+          //                         "subtitulo": "Gel (15g)",
+          //                         "descricao": "Ácido azeláico 150mg/g",
+          //                         "fabricante": "Bayer",
+          //                         "titularidade": "Referência"
+          //                     },
+          //                     "mostrar_nome": true,
+          //                     "alto_custo": false,
+          //                     "controle_especial": false,
+          //                     "id": "a538912050013513",
+          //                     "motivo_alteracao_status": {
+          //                         "titulo": "Ativo"
+          //                     },
+          //                     "nome": "Azelan 150mg/g, Gel (15g)",
+          //                     "tarjaClass": "l",
+          //                     "precoIsLoad": true,
+          //                     "origem": "Prescrição",
+          //                     "descontinuado": false,
+          //                     "posologia": "",
+          //                     "quantidade": 1,
+          //                     "composicao": "",
+          //                     "anamnese": "",
+          //                     "cid_id": "",
+          //                     "data_solicitacao": "",
+          //                     "descricao_tratamento": "",
+          //                     "quantidade_mes_1": "",
+          //                     "quantidade_mes_2": "",
+          //                     "quantidade_mes_3": "",
+          //                     "tratamento_previo": "",
+          //                     "exames_tuss_codigo": null,
+          //                     "exames_sus_codigo": null,
+          //                     "tipo_exame_selecionado": 0,
+          //                     "catmat_codigo_br": null,
+          //                     "catmat_descricao": null,
+          //                     "cid": "c35",
+          //                     "mostrarDescricao": true,
+          //                     "posicao": 1,
+          //                     "notificacoes": {
+          //                         "simples": true
+          //                     }
+          //                 }
+          //             ]
+          //         }
+          //     }
+          // }
+          // */
+          //             });
 
-      // {
-      //    "alto_custo":false,
-      //    "composicao":"Princípio Ativo 1 + Princípio Ativo 2",
-      //    "controle_especial":false,
-      //    "descricao":"Ácido Ascórbico",
-      //    "fabricante":"Sundown Vitaminas",
-      //    "forma_fisica":"Cápsula",
-      //    "id":"a123123123",
-      //    "nome":"Vitamina C, comprimido (100un)",
-      //    "quantidade":1,
-      //    "tipo":"dermocosmético",
-      //  }
-      console.log(medicamento);
-    });
+          if (module.name === "plataforma.prescricao") {
+            MdHub.event.add("medicamentoAdicionado", function callback(
+              medicamento
+            ) {
+              var medicamentoSelecionado = {
+                id: medicamento.id,
+                nome: medicamento.nome,
+                titularidade: medicamento.titularidade,
+                tipo: medicamento.tipo,
+                tarja: medicamento.tarja,
+              };
+              medicamentosAdicionados.push(medicamentoSelecionado);
+              console.log(medicamentosAdicionados);
 
-    MdHub.event.add('medicamentoRemovido', function callback(idDoMedicamento) {
-     console.log(idDoMedicamento);
-    });
-  }
-});
-</script>
+              localStorage.setItem(
+                "medicamentoSelecionado",
+                JSON.stringify(medicamentosAdicionados)
+              );
+
+              var texto = document.getElementsByClassName("editor").textContent;
+              console.log(texto);
+            });
+
+            MdHub.event.add("medicamentoRemovido", function callback(
+              idDoMedicamento
+            ) {
+              console.log(idDoMedicamento);
+            });
+          }
+        }
+      );
+    </script>
   </body>
 </html>
