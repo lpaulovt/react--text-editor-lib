@@ -104,97 +104,20 @@ MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(modu
     <script>
       // O objeto medicamento:
       var medicamentosAdicionados = [];
+      var posologia = [];
       MdSinapsePrescricao.event.add(
         "core:moduleInit",
         function moduleInitHandler(module) {
-          // O módulo da prescrição foi iniciado,
-          //           MdHub.command
-          //             .send("plataforma.prescricao", "getPrescricao")
-          //             .then(function (prescricao) {
-          //               console.log(prescricao);
-          //               /*
-          // Retornará o seguinte payload
-          // {
-          //     "data": {
-          //         "type": "prescricoes",
-          //         "attributes": {
-          //             "paciente": {
-          //                 "id": "Paciente de teste",
-          //                 "nome": "Paciente de teste"
-          //             },
-          //             "pacienteId": "Paciente de teste",
-          //             "prescriptionDate": "17/04/2019",
-          //             "prescriptionUuid": "6ee9cd8a-4bfc-417e-be7b-5ad53083f4ba",
-          //             "medicamentos": [
-          //                 {
-          //                     "fabricante": "Bayer",
-          //                     "cids": "",
-          //                     "titularidade": "Referência",
-          //                     "status": "Ativo",
-          //                     "tarja": "Livre",
-          //                     "descricao": "Ácido azeláico 150mg/g",
-          //                     "fabricante_slug": "bayer",
-          //                     "preco": "21,00",
-          //                     "preco_maximo": 21,
-          //                     "preco_minimo": 21,
-          //                     "receituario": "Simples",
-          //                     "subtitulo": ", Gel (15g)",
-          //                     "tipo": "alopático",
-          //                     "titulo": "Azelan 150mg/g",
-          //                     "forma_fisica": "Gel",
-          //                     "highlight": {
-          //                         "titulo": "<em>Azelan</em> 150mg/g",
-          //                         "subtitulo": "Gel (15g)",
-          //                         "descricao": "Ácido azeláico 150mg/g",
-          //                         "fabricante": "Bayer",
-          //                         "titularidade": "Referência"
-          //                     },
-          //                     "mostrar_nome": true,
-          //                     "alto_custo": false,
-          //                     "controle_especial": false,
-          //                     "id": "a538912050013513",
-          //                     "motivo_alteracao_status": {
-          //                         "titulo": "Ativo"
-          //                     },
-          //                     "nome": "Azelan 150mg/g, Gel (15g)",
-          //                     "tarjaClass": "l",
-          //                     "precoIsLoad": true,
-          //                     "origem": "Prescrição",
-          //                     "descontinuado": false,
-          //                     "posologia": "",
-          //                     "quantidade": 1,
-          //                     "composicao": "",
-          //                     "anamnese": "",
-          //                     "cid_id": "",
-          //                     "data_solicitacao": "",
-          //                     "descricao_tratamento": "",
-          //                     "quantidade_mes_1": "",
-          //                     "quantidade_mes_2": "",
-          //                     "quantidade_mes_3": "",
-          //                     "tratamento_previo": "",
-          //                     "exames_tuss_codigo": null,
-          //                     "exames_sus_codigo": null,
-          //                     "tipo_exame_selecionado": 0,
-          //                     "catmat_codigo_br": null,
-          //                     "catmat_descricao": null,
-          //                     "cid": "c35",
-          //                     "mostrarDescricao": true,
-          //                     "posicao": 1,
-          //                     "notificacoes": {
-          //                         "simples": true
-          //                     }
-          //                 }
-          //             ]
-          //         }
-          //     }
-          // }
-          // */
-          //             });
-
           if (module.name === "plataforma.prescricao") {
             MdHub.event.add("medicamentoAdicionado", function callback(
               medicamento
             ) {
+              var posologiaAdd =
+                document.querySelectorAll(".posologia")[0].textContent === null
+                  ? " "
+                  : document.querySelectorAll(".posologia")[0].textContent;
+              posologia.push(posologiaAdd);
+              console.log(posologia);
               var medicamentoSelecionado = {
                 id: medicamento.id,
                 nome: medicamento.nome,
@@ -209,9 +132,6 @@ MdSinapsePrescricao.event.add('core:moduleInit', function moduleInitHandler(modu
                 "medicamentoSelecionado",
                 JSON.stringify(medicamentosAdicionados)
               );
-
-              var texto = document.getElementsByClassName("editor").textContent;
-              console.log(texto);
             });
 
             MdHub.event.add("medicamentoRemovido", function callback(
